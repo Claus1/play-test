@@ -1,0 +1,26 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET         /                    controllers.Application.index
+
+# Map static resources from the /public folder to the /assets URL path
+GET         /assets/*file        controllers.Assets.at(path="/public", file)
+
+#REST
+GET         /token               controllers.Application.token(userId: String, hardSecret: String)
+
+POST        /link                controllers.Application.link(token: String, url: String, code: String ?= "",folder_id: Long ?= 0)
+
+POST        /link/:code          controllers.Application.postLink(code: String, referer: String, remoteIp: String)
+
+GET         /link/:code          controllers.Application.getLink(code: String, token: String)
+
+GET         /folder/:id          controllers.Application.folderLinks(id: Long, offset: Long ?= 0, limit: Long ?= 0)
+
+GET         /link                controllers.Application.userLinks(token: String, offset: Long ?= 0, limit: Long ?= 0)
+
+GET         /folder              controllers.Application.folders(token: String)
+
+GET         /link/:code/clicks   controllers.Application.linkClicks(code: String, offset: Int, limit: Int)
